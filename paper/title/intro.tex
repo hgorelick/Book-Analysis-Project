@@ -1,0 +1,41 @@
+Predicting the success of a novel by analyzing its content is a challenging research problem.
+Thousands of new books are published every year, and only a fraction of them achieve wide popularity.
+So the prediction of a book success could be exceptionally useful to the publishing industry and enable editors to make better decisions. 
+Many factors contribute to a book's success including, but not limited to,
+plot, setting, character development, etc.
+Additionally, there are some other factors that contribute to a book's popularity that an author and publisher cannot control like the time when the book is published, the author's reputation, and the marketing strategy. 
+In this paper, we only focus on the content of the book to predict its popularity. 
+
+%Literary analysis is the practice of dissecting a work of text's to discern deeper meaning, and is therefore ultimately subjective. 
+%Readers, publishers, editors, etc. cannot use literary analysis to make empirical conclusions about any work of writing.
+%The authors of~\cite{ashok2013} were the first to use statistical stylometry to predict the success of a novel based only on the contents of its first 1,000 sentences, and their work showed very promising results with the best model reaching 84\% accuracy when predicting the success of \textsc{Adventure} books. 
+
+\subsection*{Previous Work}
+The authors of~\cite{ashok2013} were the first to use statistical stylometry to predict the success of a novel based only on the contents of its first 1,000 sentences. 
+Ashok et al. used stylistic approaches, such as uni-gram, bi-gram, distribution of the parts-of-speech, grammatical rules, constituent tags, and sentiment and connotation values as features with a Linear SVM~\cite{LIB} for the classification task. 
+The authors used books from 8 total genres, and they were able to achieve an average accuracy of 75.7\% for across all genres excluding \textsc{Historical Fiction}. 
+
+In~\cite{maharjan_multitask}, Maharajan et al. used a set of hand crafted features in combination with a recurrent neural network and generated feature representation to predict the likelihood of novel success.
+The authors of~\cite{maharjan_multitask} obtained an average accuracy of 73.5\% for across 8 genres.
+They also performed several experiments, including using all the features used in~\cite{ashok2013}, sentiment concepts~\cite{Senticnet}, different readability metrics, doc2vec~\cite{Doc2Vec} representation of a book, and unaligned word2vec~\cite{Word2Vec} model of the book. 
+
+In a more recent work~\cite{maharjan_emotion}, Maharajan et al. used the flow of the emotions across books for success prediction and obtained an F1-score of 69\%.
+They divided the book into chunks, counted the frequency of emotional associations for each word using the NRC emotion lexicon~\cite{NRC}, and then employed a recurrent neural network with an attention mechanism to predict both the genre and the success.
+
+\subsection*{New Work and Improvements}
+We discovered various issues with the dataset used in~\cite{ashok2013}\footnote{\url{https://www3.cs.stonybrook.edu/~songfeng/success/}} including, but not limited to its size, contents, and uniformity.
+This original dataset is quite small as it only includes the first 1,000 sentences from 800 books split into 8 different genres, which are further split into successful and unsuccessful classes, each having 50 books.
+Additionally, many of the files included have less than 1,000 sentences, or contain automatically generated text from Project Gutenberg instead of the text from the proper novel.
+Finally, the books included are prelabled with their successful/unsuccessful class, which limits further testing.
+
+Considering these issues, we decided to build upon~\cite{ashok2013}, but made following critical changes:
+\begin{itemize}
+    \item Built the largest dataset containing a total of 17,962 books.
+    %\item Implemented our own preprocessing methods.
+    \item Analyzed the \textit{entire} content of each book and employed alternative prediction models.
+    \item Introduced our feature reduction method to further improve model performance.
+\end{itemize}
+This leads to the motivation for this research and subsequent hypothesis.
+We believed that we could greatly improve upon the results of~\cite{ashok2013} with a cleaner and more complete dataset.
+We hypothesized that there must be at least one model that is both more accurate and more general than uni-gram, and from such a model, we could discover more interesting and revealing qualities that separate successful from non-successful books.
+Ultimately, through our improved methodology and larger dataset, our best models achieve over 95\% accuracy for success prediction and identify the thematic elements prioritized by successful novels of a given genre.

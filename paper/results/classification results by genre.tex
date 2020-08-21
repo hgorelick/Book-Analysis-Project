@@ -1,0 +1,49 @@
+\begin{table*}[!t]
+    \caption{Accuracy (\%) of classification results by genre, with/without feature reduction (R) (\textit{best performance in bold})}
+    \label{tab:results by genre}
+    \begin{tabular}{c|cccccccccccc|c}
+        \hline
+        \centering
+        \multirow{2}{*}{\textsc{Model}} & \multicolumn{12}{|c|}{\textsc{Genre}} & \multirow{2}{*}{\textsc{Avg}} \\
+        \cline{2-13}
+        & Adv. & Child. & Detective & Drama & Fantasy & Fiction & Hist. Fict. & Humor & Poetry & Romance & Sci-Fi & Short & \\
+        \hline
+        Unigram & 77.0 & 77.2 & 84.2 & 74.7 & 78.4 & 70.2 & 76.8 & 84.2 & 74.0 & 73.4 & 76.0 & 69.6 & 76.3 \\
+        Unigram\textsuperscript{R} & 79.1 & 82.7 & 86.7 & 78.3 & 80.4 & 75.6 & 80.4 & 88.3 & 79.0 & 77.9 & 81.3 & 78.2 & 80.6 \\
+        % \hline
+        % Bigram & & & & & & & & & & & & & \\
+        % Bigram\textsuperscript{R} & & & & & & & & & & & & & \\
+        \hline
+        POS & 79.7 & 76.4 & 77.2 & 69.1 & 75.4 & 73.7 & 84.9 & 86.7 & 77.6 & 72.9 & 74.9 & 79.3 & 77.3 \\
+        POS\textsuperscript{R} & 80.2 & 77.9 & 79.3 & 70.0 & 77.4 & 74.3 & 84.9 & 87.3 & 77.6 & 75.6 & 75.5 & 80.8 & 78.4 \\
+        \hline
+        Roget & 80.9 & 82.5 & 81.3 & 80.4 & 79.4 & 76.6 & 85.9 & 89.2 & 80.8 & 76.1 & 77.8 & 83.8 & 81.2 \\
+        Roget\textsuperscript{R} & 87.2 & 88.5 & 94.9 & 85.9 & 92.0 & 79.9 & 87.8 & 91.5 & 84.5 & 85.2 & 82.1 & 90.5 & 87.5 \\
+        \hline
+        WordNet & 87.9 & 81.0 & 86.3 & 81.8 & 81.7 & 76.4 & 82.5 & 87.5 & 80.4 & 78.7 & 76.0 & 82.7 & 81.9 \\
+        WordNet\textsuperscript{R} & \textbf{98.5} & 92.9 & \textbf{99.5} & 97.0 & 96.1 & \textbf{92.1} & 97.5 & 96.3 & \textbf{90.8} & 97.3 & 91.3 & \textbf{95.4} & \textbf{95.4} \\
+        \hline
+        WNRC & 94.3 & 89.8 & 92.4 & 92.8 & 86.0 & 82.1 & 97.0 & 94.4 & 82.4 & 91.9 & 84.9 & 86.4 & 89.5 \\
+        WNRC\textsuperscript{R} & \textbf{98.5} & \textbf{93.7} & \textbf{99.5} & \textbf{98.3} & \textbf{96.9} & 85.9 & \textbf{100.0} & \textbf{97.3} & 87.5 & \textbf{97.7} & \textbf{93.9} & \textbf{95.4} & \textbf{95.4} \\
+        \hline
+        WNRT & 80.7 & 77.7 & 82.5 & 82.3 & 73.8 & 74.0 & 93.0 & 87.7 & 77.6 & 85.5 & 78.6 & 84.5 & 81.5 \\
+        WNRT\textsuperscript{R} & 90.8 & 78.3 & 87.7 & 84.0 & 79.5 & 74.8 & 92.0 & 88.6 & 79.3 & 83.7 & 81.5 & 84.3 & 83.7 \\
+        % \hline
+        % \hline
+        % \textsc{Average} & 84.4 & 80.6 & 84.6 & 79.4 & 80.0 & 75.5 & 86.5 & 88.3 & 78.9 & 78.6 & 78.1 & 81.1 & 81.3 \\
+        % \textsc{Average\textsuperscript{R}} & 89.1 & 85.7 & 91.3 & 85.6 & 87.0 & 80.4 & 90.4 & 91.6 & 83.1 & 86.2 & 84.3 & 87.4 & 86.8 \\
+        % \hline
+        % $\Gamma$ & & & & & & & & & & & & & \\
+        % $\Gamma^R$ & & & & & & & & & & & & & \\
+        % \hline
+        % $\Gamma^G$ & & & & & & & & & & & & & \\
+        % $\Gamma^{G^R}$ & & & & & & & & & & & & & \\
+        % \hline
+        % $\gamma$ & & & & & & & & & & & & & \\
+        % $\gamma^R$ & & & & & & & & & & & & & \\
+        % \hline
+        % $\gamma^G$ & & & & & & & & & & & & & \\
+        % $\gamma^{G^R}$ & & & & & & & & & & & & & \\
+        \hline
+    \end{tabular}
+\end{table*}

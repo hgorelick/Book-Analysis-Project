@@ -1,0 +1,54 @@
+\input{title/preamble}
+
+%%
+%% end of the preamble, start of the body of the document source.
+\begin{document}
+
+\input{title/title}
+
+\input{dataset construction/threshold table}
+
+% \input{figures/code/roget threshold search by genre}
+
+\input{figures/code/wn threshold search}
+
+\input{figures/code/wn feature reduction}
+
+\section{Introduction}\label{sec:introduction}
+
+\input{title/intro}
+
+\section{Dataset Construction}\label{sec:dataset-construction}
+
+\input{dataset construction/main}
+
+\input{results/classification results by genre}
+
+\section{Methodology}\label{sec:methodology}
+
+\input{methodology/main}
+
+\section{Experimental Results}\label{sec:experimental-results}
+
+\input{results/main}
+
+% \input{results/children themes} % moved to results/main for spacing
+
+\section{Future Work}\label{sec:future work}
+
+The discoveries made in our research are just the beginning of what can be done with our dataset.
+In addition to the data utilized for this project, we also extracted bi-gram and context-free grammar production features from each book.
+In future work, we will continue to explore the impact of these features in addition to semantic word associations on book success.
+
+We also believe that we could achieve better results through the use of a different success surrogate metric.
+The scale of Project Gutenberg's catalog does not correspond to the website's popularity.
+Therefore, as we continue this work we will include ratings from popular sites such as Goodreads.com, Amazon, etc. to acquire a even more accurate measurement of success~\cite{goodreads}.
+
+\section{Conclusion}\label{sec:conclusion}
+
+\input{conclusion/main}
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{ref}
+
+\end{document}

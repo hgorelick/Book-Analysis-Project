@@ -1,0 +1,29 @@
+We downloaded and used 17,962 English novels from Project Gutenberg. It is an online catalog of over 60,000 books, which are available to download for free in various formats~\cite{project-gutenberg}.
+We used a bash script to harvest the novels from Project Gutenberg according to the webmaster's guidelines~\cite{gutenberg-script}\footnote{\url{https://www.gutenberg.org/wiki/Gutenberg:Information_About_Robot_Access_to_our_Pages}}.
+
+After downloading the books we used the NLTK API for data processing~\cite{bird_klein_loper_2009}.
+For each book, we extracted the uni-gram frequencies, the part-of-speech (POS) tag frequencies using the Stanford CoreNLPParser, the \textit{Roget's Thesaurus} Category frequencies, and the WordNet Synset frequencies~\cite{roget,wordnet,corenlp}.
+Like the authors of~\cite{maharjan_emotion}, we also extracted the NRC Emotional Lexicon features, and additionally the Linguistic Inquiry and Word Count (LIWC) features from each book.
+These emotional word mappings are highly valuable for some tasks, but the resulting models were not effective in our tests, and therefore not presented in this article~\cite{NRC,LIWC}.
+
+Each book in Project Gutenberg's catalog includes important information including its title, author, genre, language, and number of downloads.
+This metadata is available for download as RDF files\footnote{\url{https://www.gutenberg.org/wiki/Gutenberg:Feeds}}.
+We downloaded the RDF catalog, and then parsed and extracted the metadata for each book.
+For the experiments in this project, we use novels from 12 different genres as shown in Table~\ref{tab:thresholds}.
+
+Like in~\cite{ashok2013}, we also used the download count of each book to define a measurement of success.
+In addition to predicting success classification for books split into unique genres, we also tested prediction performance independent of genre across the entire dataset.
+In both settings, we found an upper ($\upsilon^+$) and lower ($\upsilon^-$) download threshold for classifying books of that genre as "successful" or "not successful."
+
+% \input{dataset construction/hist fict roget margins}
+
+We performed an exhaustive search to find these thresholds by setting the class labels according to an incrementally widening download margin, and then training and testing each model at each increment.
+Starting at the median number of downloads, we label all books with downloads above the median as successful and all books below the median as unsuccessful.
+We train and test the given model with these labels and record the accuracy.
+Next, we move the upper bound to the first value greater than the median downloads and the lower bound to the first value less than the median downloads and train and test the model again with these new labels.
+This continues until there are less than 100 books in either class.
+
+Each model achieved its best performance with a different class label margin, which we then used for the remainder of classification testing as shown for the WordNet model in Table~\ref{tab:thresholds}, and the corresponding search plot in Figure~\ref{fig:wn threshold search by genre}.
+The search plot illustrates the lack of uniformity of download counts among and within each genre.
+At each pair of $\upsilon^+$ and $\upsilon^-$, the number of books in the successful and unsuccessful classes is not the same from genre to genre, just as the values for $\upsilon^+$ and $\upsilon^-$ are not the same.
+%an example of the effects of download margin on the Roget model's performance when predicting the success of \textsc{Historical Fiction} novels in Table~\ref{tab:hist fict roget margins}.

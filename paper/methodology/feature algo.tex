@@ -1,0 +1,66 @@
+% \begin{lstlisting}[language=Python, escapechar=', caption={\small{Feature Reduction Algorithm}}, label={feature_algo}]
+% step = 0.0
+% best_accuracy = original_accuracy
+% best_features = original_features
+
+% # Find the average and standard deviation of
+% # the feature weights from the trained model
+% avg_weight = original_features.mean()
+% std_dev = original_features.std()
+    
+% # Loop until achieving perfect accuracy,
+% # or until a break condition
+% while best_accuracy != 1.0:
+    
+%     # Set the starting threshold to
+%     # the mean feature weight
+%     threshold = avg_weight + (step * std_dev)
+    
+%     # Keep only the most important features
+%     reduced_feats = original_features with |weight| >= threshold
+    
+%     # Set the reduction limit to 1%
+%     # the number of original features
+%     if '\#' of reduced features < 1% of original features:
+%         break
+    
+%     # Train and test the model using
+%     # only the reduced feature set
+%     accuracy = train_test(original_model with reduced_feats only)
+    
+%     # Checks for improved accuracy and
+%     # corresponding features then increments
+%     # the threshold multiplier by 0.25
+%     if accuracy > best_accuracy:
+%         best_accuracy = accuracy
+%         best_features = reduced_feats
+%     step += 0.25
+
+% return best_features
+% \end{lstlisting}
+\begin{algorithm}[h]
+    \caption{Feature Reduction}
+    \label{alg:feature_alg}
+    \begin{algorithmic}
+        \State Step $\leftarrow$ 0.0
+        \State BestAccuracy $\leftarrow$ OriginalAccuracy
+        \State BestFeatures $\leftarrow$ OriginalFeatures
+        \State AverageWeight $\leftarrow$ OriginalFeatures.Weights.mean()
+        \State StandardDev $\leftarrow$ OriginalFeatures.Weights.stddev()
+        
+        \While{BestAccuracy $\not=$ 1.0}
+            \State Threshold $\leftarrow$ AverageWeight + (Step $*$ StandardDev)
+            \State ReducedFeatures $\leftarrow$ $|$OriginalFeatures.Weights$|$ $\geq$ Threshold
+            \If{len(ReducedFeatures) $<$ len(OriginalFeatures) * 0.01}
+                \State \textbf{break}
+            \EndIf
+            \State Accuracy $\leftarrow$ TrainTest(OriginalModel[ReducedFeatures])
+            \If{Accuracy $>$ BestAccuracy}
+                \State BestAccuracy $\leftarrow$ Accuracy
+                \State BestFeatures $\leftarrow$ ReducedFeatures
+            \EndIf
+            \State Step $\leftarrow$ Step + 0.25
+        \EndWhile
+        \Return BestFeatures
+    \end{algorithmic}
+\end{algorithm}

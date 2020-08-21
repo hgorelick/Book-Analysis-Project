@@ -1,0 +1,59 @@
+\subsection*{Linguistic Models}\label{subsec:models}
+We utilized six linguistic models for our quantitative analysis.
+Two of the models are our own implementation of models used in~\cite{ashok2013}.
+Our four additional models have not been used to make these types of qualitative conclusions until now. These models include WordNet~\cite{bird_klein_loper_2009}, \textit{Roget's Thesaurus}~\cite{roget}, and two other models that map WordNet to different levels of \textit{Roget's Thesaurus}.
+
+\renewcommand{\labelenumi}{\bfseries\Roman{enumi}}
+\begin{enumerate}[label=\Roman*,ref=\textbf{\thesection}]
+    \item \textbf{Lexical Choices:\enspace}The words used in written documents is frequently employed for various applications, with the most popular lexical model being the n-gram model.
+    For our analysis, we utilized the following lexical choice analysis models:
+    \begin{itemize}
+        \item \textbf{Unigram:\enspace}The frequency of unique words in the text.
+        \item \textbf{WordNet:\enspace}WordNet is large lexical database of English words. The WordNet database groups nouns, verbs, adjectives, and adverbs into sets of cognitive synonyms called Synsets. Each Sysnet expresses a distinct concept and is represented by a single word. Since Sysnets represent conceptual synonyms, they are able to be linked through conceptual and semantic relationships~\cite{wordnet}.
+        WordNet has a total of 117,659 Synsets, each represented by a single, unique word, and our model uses the frequencies of these Synsets in each book.
+        Not only does WordNet fit our semantic relation analysis methodology, but it has been used for the relevant task of metaphor identification in~\cite{mao2018word}.
+        \item \textbf{\textit{Roget's Thesaurus}:\enspace}A tree structured thesaurus with six root nodes, which we will refer to as Roget Classes or Classes for short.
+        Each Class is divided in sections, which results in 23 total sections.
+        These sections represent 23 unique concepts that are both general enough to encompass a wide range of ideas, but also specific enough to retain clear meaning.
+        Therefore, we refer to these sections as Themes and they are the critical piece to interpreting the results of class prediction.
+        Themes are further divided into subsections, levels, etc. before terminating in 1,039 groups of synonyms, which we will refer to as Categories. 
+        The Categories are comprised of 56,769 total words, with about half appearing in multiple Categories~\cite{roget}. 
+        Our Roget model uses the frequencies of these Categories in each book.
+        Furthermore, the authors of~\cite{aman2008using} demonstrated the possible applications of \textit{Roget's Thesaurus} for emotion detection with natural language processing, and~\cite{roget-summary} used the thesaurus for the related process of text summarizing.
+        \item\label{it:wn to roget} \textbf{Mapping WordNet to Roget:\enspace}Since \textit{Roget's Thesaurus} has fewer synonym groups than WordNet (1,039 vs. 117,659), and those groups are hierarchically abstracted with each of the 1,039 Roget Categories belonging to one of the 23 Roget Themes, we mapped WordNet's Synsets to \textit{Roget's Thesaurus} to discover more meaningful insights into the distinct characteristics of successful novels.
+        We mapped WordNet to Roget Categories (WNRC), and then subsequently to Roget Themes (WNRT).
+    \end{itemize}
+    \item \textbf{Part-of-Speech Distribution:\enspace}The authors of~\cite{ashok2013} demonstrated the value of POS tag distribution in success prediction, and~\cite{koppel2006} presented the relationship between POS tagging and genre detection and authorship attribution.
+    Therefore, we reevaluated the application of POS tag distribution for success prediction.
+    % \item \textbf{Context Free Grammar Rule Distribution:} \quad We also reevaluate the analysis of CFG rule distribution as
+    % presented in~\cite{ashok2013}, and use the same four categories:
+    % \begin{itemize}
+    %     \item $\Gamma$\tab lexical production rules (productions where the right-hand symbol is a terminal symbol).
+    %     \item $\Gamma^G$\tab lexical production rules prepended with the grandparent node.
+    %     \item $\gamma$\tab nonlexical production rules (productions where the right-hand symbol is a non-terminal
+        
+    %     \tab symbol).
+    %     \item $\gamma^G$\tab nonlexical production rules prepended with the grandparent node.
+    % \end{itemize}
+\end{enumerate}
+
+\subsection*{Implementation}\label{subsec:implementation}
+We used the sci-kit learn implementation of LibLinear SVM with 5-fold cross validation for class prediction~\cite{scikit-learn,LIB}.
+Part-of-speech tag features are scaled with unit normalization, while all other features are scaled using tf-idf. We used two strategies for all class prediction tasks: 
+\begin{itemize}
+    \item predicting class by genre, and
+    \item predicting class independent of genre.
+\end{itemize}
+
+After the initial training and testing of each model, we employed an exhaustive feature reduction method, similar to our success labeling process, to maximize performance.
+For a given model, we start with the mean feature weight learned during training.
+We remove all features from the dataset with weights less than the mean feature weight.
+Next, we train and test the model on this reduced feature set and record the accuracy.
+For each subsequent test, starting at a step value of 0.25, we take only the features with weights greater than or equal to $Mean(Original Weights) + (StdDev(Original Weights) * Step)$.
+This process continues, increasing the step value by 0.25 after each iteration, until one of the following conditions is met:
+\begin{itemize}
+    \item perfect accuracy is achieved,
+    \item maximum accuracy is found (determined if consecutive subsequent feature sets produce decreasing performance), or 
+    \item the number of features is reduced to less than 1\% of the original number of features.
+\end{itemize}
+% This processes improved the performance of all except one model tested.

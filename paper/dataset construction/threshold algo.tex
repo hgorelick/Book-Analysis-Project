@@ -1,0 +1,81 @@
+\begin{lstlisting}[language=Python, escapechar=!, caption={\small{Threshold Search Algorithm}}, label={thresh_algo}]
+# We start with successful books having 
+# downloads >, and unsuccessful books having
+# downloads < the median download count
+median = data.downloads.median()
+high = data where downloads > median
+low = data where downloads < median
+
+# Keep track of the best threshold pair and its accuracy
+best_thresh = (high, low)
+best_accuracy = test_threshold(high, low)
+
+# Set the new successful threshold as the 
+# first value greater than the median
+high_index = 1
+high_thresh = high[-high_index]
+
+# Set the new unsuccessful threshold as
+# the first value less than the median
+low_index = 0
+low_thresh = low[low_index]
+
+# Continue to widen and test success margin until 
+# there are less than 100 successful/unsuccessful books
+while len(high) >= 100 and len(low) >= 100:
+    
+    # Get new successful/unsuccessful
+    # books and test the threshold pair
+    high = data where downloads > high_thresh
+    low = data where downloads < low_thresh
+    accuracy = test_threshold(high, low)
+    
+    # Keep best threshold pair
+    if accuracy > best_accuracy:
+        best_thresh = (high, low)
+        best_accuracy = accuracy
+    
+    # Incrementally widen the success margin
+    high_index += 1
+    high = data where downloads > median
+    high_thresh = high[-high_index]
+    
+    low_index += 1
+    low = data where downloads < median
+    low_thresh = low[low_index]
+
+return best_thresh
+\end{lstlisting}
+% \begin{algorithm}[h]
+%     \caption{Download Margin Search}
+%     \label{alg:margin_alg}
+%     \begin{algorithmic}
+%         \State Median $\leftarrow$ Books.Downloads.median()
+%         \State Successful $\leftarrow$ Books where Downloads > Median
+%         \State Unsuccessful $\leftarrow$ Books where Downloads < Median
+        
+%         \State BestMargin $\leftarrow$ (Successful, Unsuccessful)
+%         \State BestAccuracy $\leftarrow$ TestMargin(Successful, Unsuccessful)
+        
+%         \State SuccessfulIndex $\leftarrow$ 1
+%         \State SuccessfulThreshold $\leftarrow$ Successful[-SuccessfulIndex]
+        
+%         \State UnsuccessfulIndex $\leftarrow$ 0
+%         \State UnsuccessfulThreshold $\leftarrow$ Successful[UnsuccessfulIndex]
+        
+%         \While{\# of books above and below the margin >= 100}
+%             \State Threshold $\leftarrow$ AverageWeight + (Step $*$ StandardDev)
+%             \State ReducedFeatures $\leftarrow$ $|$OriginalFeatures.Weights$|$ $\geq$ Threshold
+%             \If{len(ReducedFeatures) $<$ len(OriginalFeatures) * 0.01}
+%                 \State \textbf{break}
+%             \EndIf
+%             \State Accuracy $\leftarrow$ TrainTest(OriginalModel[ReducedFeatures])
+%             \If{Accuracy $>$ BestAccuracy}
+%                 \State BestAccuracy $\leftarrow$ Accuracy
+%                 \State BestFeatures $\leftarrow$ ReducedFeatures
+%             \EndIf
+%             \State Step $\leftarrow$ Step + 0.25
+%         \EndWhile
+%         \Return BestFeatures
+%     \end{algorithmic}
+% \end{algorithm}

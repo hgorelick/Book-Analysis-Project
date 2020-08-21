@@ -1,0 +1,104 @@
+%%
+%% The "title" command has an optional parameter,
+%% allowing the author to define a "short title" to be used in page headers.
+%\title[Thematic Elements]{Using Thematic Elements to Interpret Book Success Prediction}
+%\title[Thematic Elements]{Using Semantic Word Associations to Interpret Book Success Prediction}
+\title[Semantic Success]{Using Semantic Word Associations to Predict and Interpret the Success of Novels}
+
+% \author{Henry W. Gorelick}
+% \email{hgorelick@fordham.edu}
+% \orcid{tbd}
+% \author{Dr. Mohammad Ruhul Amin}
+% \email{mamin17@fordham.edu}
+% \affiliation{%
+%   \institution{Fordham University}
+%   \streetaddress{113 W 60th St}
+%   \city{New York}
+%   \state{New York}
+%   \postcode{10023}
+% }
+
+\begin{abstract}
+  Literary analysis, in the traditional sense, is the subjective practice of dissecting a work of text to discern deeper meaning.
+  Recently however, researchers have taken up the task of adapting literary analysis, conventionally exclusive only to publishers, editors, English professors, and the like, to something data science can recognize.
+  And, there has been some success in this venture.
+  In this paper, we attempt to predict the success of a novel by modeling the lexical semantic relations of its contents.
+  We then analyze those relationships to identify those that directly impact a book's success. 
+  We built upon the previous research in this field and created the largest dataset used in such a project containing various types of lexical data from 18,000 books. 
+  We implemented the most accurate models to date for predicting book success with domain specific feature reduction techniques, achieving a highest average accuracy of 95.4\%. 
+  While such strong performance in success prediction is impressive, we dug deeper to interpret the high accuracy.
+  We found a mapping from WordNet's defined semantic word relations to a set of themes as defined in \textit{Roget's Thesaurus}.
+  With this mapping, we discovered the themes that successful books of a given genre prioritize.
+  In other words, if you want to write a bad children's book, write about keeping quiet in school.
+  
+\end{abstract}
+
+\begin{CCSXML}
+<ccs2012>
+   <concept>
+       <concept_id>10002951.10003227.10003351</concept_id>
+       <concept_desc>Information systems~Data mining</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+   <concept>
+       <concept_id>10002951.10003260.10003277.10003279</concept_id>
+       <concept_desc>Information systems~Data extraction and integration</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+   <concept>
+       <concept_id>10002951.10003260.10003261.10003267</concept_id>
+       <concept_desc>Information systems~Content ranking</concept_desc>
+       <concept_significance>300</concept_significance>
+       </concept>
+   <concept>
+       <concept_id>10010147.10010257.10010293.10010075.10010295</concept_id>
+       <concept_desc>Computing methodologies~Support vector machines</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+   <concept>
+       <concept_id>10010147.10010257.10010339</concept_id>
+       <concept_desc>Computing methodologies~Cross-validation</concept_desc>
+       <concept_significance>300</concept_significance>
+       </concept>
+   <concept>
+       <concept_id>10010147.10010257.10010321.10010336</concept_id>
+       <concept_desc>Computing methodologies~Feature selection</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+   <concept>
+       <concept_id>10010147.10010178.10010179.10010184</concept_id>
+       <concept_desc>Computing methodologies~Lexical semantics</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+   <concept>
+       <concept_id>10010147.10010178.10010179.10003352</concept_id>
+       <concept_desc>Computing methodologies~Information extraction</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+   <concept>
+       <concept_id>10010147.10010178.10010179</concept_id>
+       <concept_desc>Computing methodologies~Natural language processing</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+ </ccs2012>
+\end{CCSXML}
+
+\ccsdesc[500]{Information systems~Data mining}
+\ccsdesc[500]{Information systems~Data extraction and integration}
+\ccsdesc[300]{Information systems~Content ranking}
+\ccsdesc[500]{Computing methodologies~Support vector machines}
+\ccsdesc[300]{Computing methodologies~Cross-validation}
+\ccsdesc[500]{Computing methodologies~Feature selection}
+\ccsdesc[500]{Computing methodologies~Lexical semantics}
+\ccsdesc[500]{Computing methodologies~Information extraction}
+\ccsdesc[500]{Computing methodologies~Natural language processing}
+
+%%
+%% Keywords. The author(s) should pick words that accurately describe
+%% the work being presented. Separate the keywords with commas.
+\keywords{book success prediction, semantic word association, feature reduction, book content mining}
+
+%%
+%% This command processes the author and affiliation and title
+%% information and builds the first part of the formatted document.
+\maketitle

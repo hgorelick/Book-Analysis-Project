@@ -1,0 +1,9 @@
+/.ipynb_checkpoints/
+*.log
+/.scripts/logs/
+/ssh interpreter paths.txt
+/ssh to newerdos commands.txt
+/Todo and Erdos Jupyter Command.txt
+/data/
+/.idea/
+/stanford-corenlp-4.0.0/

@@ -1,0 +1,63 @@
+\subsection*{Classification Results}
+The prediction accuracy for each model by genre, and each model across all books, both before and after feature reduction are shown in Table~\ref{tab:results by genre} and Table~\ref{tab:results all}, respectively\footnote{All WordNet to Roget models are mapped from WordNet\textsuperscript{R}}.
+As illustrated in both settings, the performance of nearly every model improved after we reduced the features with WordNet showing the largest improvement of an average of 11.9\% when reduced by genre and 8.8\% when reduced independent of genre.
+
+The best performing models are indicated in bold in Table~\ref{tab:results by genre} and Table~\ref{tab:results all}.
+When predicting novel success by genre, WordNet\textsuperscript{R} and WNRC\textsuperscript{R} show the best results with both models predicting a book's success class at 95.4\%.
+WordNet\textsuperscript{R} is most accurate with \textsc{Adventure} books, with an accuracy of 98.5\%, while WNRC\textsuperscript{R} is able to predict the success of \textsc{Historical Fiction} books with 100\% accuracy.
+When predicting the success of a book independent of genre, WordNet\textsuperscript{R} remains the most accurate at 86.3\%.
+
+Figure~\ref{fig:wn feature reduction} illustrates the pattern of performance improvement that each model exhibits through the feature reduction process both by genre and independent of genre.
+As the number of features is reduced, the average accuracy for success prediction increases until the algorithm finds the best set of features and achieves peak performance.
+Then accuracy sharply drops as the feature set is reduced further.
+The fact that each model demonstrates such behavior validates the effectiveness of our feature reduction method.
+
+\input{results/classification results all}
+
+\subsection*{Interpreting Book Success}\label{subsec:int book success}
+While our reduced WordNet model displays excellent performance in both test settings (by genre and independent of genre), the resulting feature sets are not self-explanatory.
+In other words, the Synsets that the model deems most important do not necessarily highlight some interesting aspect of successful books, expected or otherwise.
+This is where \textit{Roget's Thesaurus} proves most valuable.
+
+We figured that if we looked up the Roget Theme of each WordNet Synset that we would find that the successful and unsuccessful books prioritize different Themes.
+This was possible due to the similarity in the structure of WordNet and \textit{Roget's Thesaurus} as explained in the \textbf{Methodology} section above.
+With this hypothesis in mind, we mapped the reduced WordNet model to a new Roget model by first looking up the Roget Category of each Synset from the reduced WordNet feature set, and then summing the frequencies in each group of Sysnets.
+Then, as we did with each previous model, we reduced the new WordNet-to-Roget-Category (WNRC) model.
+From the WNRC\textsuperscript{R} model we mapped again, this time from Roget Categories to the 23 Roget Themes, which produced the WordNet-to-Roget-Themes (WNRT) model.
+
+We did not expect the performance of the WNRC model, since it was conceived strictly as an intermediary map between WordNet and Roget Themes. 
+WNRC produced the highest baseline results of all the models used in our experiments with 89.5\% average accuracy by genre, and was able to perfectly predict the success classification of \textsc{Historical Fiction} novels.
+Furthermore, WNRC\textsuperscript{R} accurately predicts success classification per genre at an average rate of 95.4\%, tying it with WordNet\textsuperscript{R} as the best performing models we tested.
+What's impressive about the accuracy of WNRC\textsuperscript{R} when compared to that of WordNet\textsuperscript{R} is the large difference in number of features used in each model as shown in Table~\ref{tab:wn vs wnrc features}.
+
+\input{results/wn vs wnrc features table}
+
+With such impressive results from WNRC\textsuperscript{R}, we expected WNRT and WNRT\textsuperscript{R} to follow suit despite learning with a feature set of at most 23 features.
+WNRT\textsuperscript{R} achieves an average accuracy of 83.7\% learning from an average of only 10 features. 
+While the performance of WNRT\textsuperscript{R} is impressive given the few number of features it requires, the purpose of WNRT\textsuperscript{R} was not to outperform WordNet\textsuperscript{R} or WNRC\textsuperscript{R}.
+As previously state, the motivation for the construction of WNRT was strictly to find a common thread between successful novels in each genre.
+That said, the decent performance of the WNRT\textsuperscript{R} model does support the reasoning behind its conception, and provide further evidence that WordNet\textsuperscript{R} and WNRC\textsuperscript{R} are general models that can reveal underlying characteristics of successful books.
+
+\input{results/children themes}
+
+Additionally, WNRT does not improve performance after feature reduction when classifying independent of genre.
+This outcome also supports our original hypothesis as it shows that the model requires each of the 23 Roget Themes in order to make the most accurate prediction.
+The lack of improvement in WNRT\textsuperscript{R} when predicting success class independent of genre also demonstrates the relationship between a novel's genre and its prioritization of certain Themes.
+
+\subsection*{Successful Lexical Choices}\label{subsec:successful lexical choices}
+
+After mapping the resulting feature weights of our WordNet\textsuperscript{R} model to Roget Themes, we were able to highlight the most important Themes when classifying the success of a novel given its genre.
+Table~\ref{tab:child themes} gives the most important themes in predicting the success of \textsc{Children's} novels and the successful and unsuccessful semantic word groups within those themes.
+These results clearly identify words associated with "school" and "grammar" as key contributors to unsuccessful \textsc{Children's} novels, while words like "secret," "enthusiastic," and "selfishness" contribute to successful \textsc{Children's} novels.
+
+The indicated Themes align with intuitive expectations for \textsc{Children's} books, especially the presence of \textsc{Formation of Ideas} and \textsc{Moral}.
+To verify these results, we looked at the most downloaded \textsc{Children's} book, \textit{Little Women}.
+We ranked each book in the \textsc{Children's} genre according to the frequency of each prioritized Themes listed in Table~\ref{tab:little women}.
+Then, we looked to see where \textit{Little Women} ranked for each of the Themes.
+\textit{Little Women}'s use of the top Themes matches up as expected, as it ranks in the top three for four of the five most important Themes, and eighth for the fifth as shown in Table~\ref{tab:little women}.
+The opposite is true for the least downloaded books, which all rank at the bottom for use of the most important Themes.
+
+\input{results/little women themes}
+
+Our Thematic observations hold true for each genre, but there is not one theme shared by all 12 genres.%, and Table~\ref{tab:theme counts} shows the distribution of Theme prioritization across all 12 genres.
+This adheres to the observation we made about the WNRT and its lack of improvement after feature reduction for predicting success of all books.
