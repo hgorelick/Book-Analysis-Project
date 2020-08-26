@@ -37,15 +37,17 @@ def test_ml():
     loader.load_model()
 
 
-def test_ta_by_genre():
-    ta = ThresholdApplier(model="wordnet", by_genre=True, load=False)
-    accs, weights, preds, results = ta.apply_thresholds_by_genre()
+def test_ta_by_genre(model: str = "wordnet"):
+    ta = ThresholdApplier(model=model, by_genre=True, load=False)
+    idx, ta_accs, ta_weights, ta_preds, ta_thresholds = ta.test_thresholds_by_genre()
+    accs, weights, preds, results = ta.apply_thresholds_by_genre(idx, ta_accs, ta_weights, ta_preds, ta_thresholds)
     print(results)
 
 
-def test_ta():
-    ta = ThresholdApplier(model="wordnet", load=False)
-    best_idx, accs, weights, results = ta.apply_thresholds(0, None, None, None, None)
+def test_ta(model: str = "wordnet"):
+    ta = ThresholdApplier(model=model, load=False)
+    ta_accs, ta_weights, ta_preds, ta_thresholds = ta.test_thresholds()
+    accs, weights, preds, results = ta.apply_thresholds(ta_accs, ta_weights, ta_preds, ta_thresholds)
     print(results)
 
 
@@ -93,5 +95,5 @@ def test_regression():
 
 
 if __name__ == "__main__":
-    # test_ta()
-    test_bins_by_genre()
+    test_ta("unigram")
+    # test_bins_by_genre()
