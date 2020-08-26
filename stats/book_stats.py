@@ -1,20 +1,16 @@
 import pickle
 from collections import Counter
+from typing import List
 
+import cufflinks as cf
 import pandas as pd
-import ipywidgets as widgets
-from ipywidgets import interact, interact_manual
-
-import chart_studio.plotly as py
 import plotly.graph_objs as go
 from plotly.offline import iplot, init_notebook_mode
-import cufflinks as cf
-from typing import List
 
 from analysis.thresholds import ThresholdApplier
 from book_processor.gutenberg_processor import process_rdf_df
 from loading_utils.data_loader import DataLoader
-from notebook_utils.constants import PROJ_ROOT, NEW_GENRES, scaler
+from notebook_utils.constants import PROJ_ROOT
 from notebook_utils.utils import display_df
 
 cf.go_offline(connected=True)
