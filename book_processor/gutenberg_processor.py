@@ -309,7 +309,7 @@ def remove_gutenberg_notes(lines: List[str]):
 def load_rdf_df():
     if os.path.exists(str(PROJ_ROOT.joinpath("data", "rdf_data", "processed rdf data"))):
         rdf_data_df = pickle.load(open(str(PROJ_ROOT.joinpath("data", "rdf_data", "processed rdf data")), "rb+"))
-        rdf_data_df.rename(columns={"Genre": "@Genre"}, inplace=True)
+        rdf_data_df.rename(columns={"Genre": "@Genre", "Downloads": "@Downloads"}, inplace=True)
         return rdf_data_df
     return None
 
