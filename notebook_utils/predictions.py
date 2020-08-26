@@ -63,19 +63,21 @@ class Predictor(DataInterface):
         else:
             self.model_loader.data["@Outcome"] = scaler.fit_transform(self.model_loader.data[["@Outcome"]])
 
-    def merge_with_downloads(self, df_: Optional[pd.DataFrame] = None, rank: bool = False):
-        rdf_data = load_rdf_df().rename(columns={"Downloads": "@Downloads"})
+    def merge_with_downloads(self, df_: Optional[pd.DataFrame] = None, rank: bool = False, **kwargs):
+        rdf_data = load_rdf_df()
         rdf_data["Book #"] = rdf_data["Book #"].astype(str)
+        cols = ["Book #", "@Downloads"]
+        cols += kwargs.get("extras", [])
         if df_ is not None:
-            with_downloads = pd.merge(df_, rdf_data[["Book #", "@Downloads"]], how="outer", on=["Book #"])
+            with_downloads = pd.merge(df_, rdf_data[cols], how="outer", on=["Book #"])
         else:
-            with_downloads = pd.merge(self.model_loader.data, rdf_data[["Book #", "@Downloads"]], how="outer", on=["Book #"])
+            with_downloads = pd.merge(self.model_loader.data, rdf_data[cols], how="outer", on=["Book #"])
 
         with_downloads["@Outcome"] = with_downloads["@Downloads"].copy()
         if rank:
-            with_downloads = with_downloads.sort_values(by=["@Downloads"], ascending=False)\
-                .reset_index()\
-                .drop(columns=["@Outcome"])\
+            with_downloads = with_downloads.sort_values(by=["@Downloads"], ascending=False) \
+                .reset_index() \
+                .drop(columns=["@Outcome"]) \
                 .rename(columns={"index": "@Outcome"})
         return with_downloads
 
@@ -416,9 +418,12 @@ class Predictor(DataInterface):
 
     @staticmethod
     def remove_numbers(df: pd.DataFrame):
-        drop_cols = [c for c in df.columns if re.match("[A-Za-z]*\\d+[A-Za-z]*", c, re.IGNORECASE)]
-        dropped = df.drop(columns=drop_cols)
-        return dropped
+        try:
+            drop_cols = [c for c in df.columns if re.match("[A-Za-z]*\\d+[A-Za-z]*", c, re.IGNORECASE)]
+            dropped = df.drop(columns=drop_cols)
+            return dropped
+        except AttributeError:
+            return df
 
     @staticmethod
     def get_ens_str(model_names: List[str]):
