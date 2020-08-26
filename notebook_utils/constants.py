@@ -1,4 +1,4 @@
-__all__ = ['PROJ_ROOT', 'DATA_PATHS', 'GENRES', 'GENRE_COMBS', 'scaler', 'minmax', 'remove_punct', 'roget_thesaurus', 'get_dir',
+__all__ = ['PROJ_ROOT', 'DATA_PATHS', 'GR_KEYS', 'GENRES', 'GENRE_COMBS', 'scaler', 'minmax', 'remove_punct', 'roget_thesaurus', 'get_dir',
            'GENRE_MAP', 'NEW_GENRES', 'NO_HORROR', 'NUM_GENRES', 'EMOTIONS', 'ALL_MODELS', 'MODEL_NAMES', 'NON_NGRAM',
            'WORD_CHOICE', 'CAPITALS', 'PRODUCTIONS']
 
@@ -29,6 +29,21 @@ DATA_PATHS = {"all": PROJ_ROOT.joinpath("data", "all book data"),
               "book lengths": PROJ_ROOT.joinpath("data", "book lengths"),
               "processed list": PROJ_ROOT.joinpath("data", "all book data", "processed_list"),
               "text path": get_dir(PROJ_ROOT, "zipfileLinks.txt").joinpath("processed text files")}
+
+
+def get_gr_api_keys(path: Path):
+    """
+    Gets your Goodreads api keys from the given file path.
+    Must be in the following format:
+        key: [key]
+        secret: [secret]
+    """
+    lines = open(str(path), "r+").readlines()
+    keys = {"public": lines[0].split(": ")[1], "secret": lines[1].split(": ")[1]}
+    return keys
+
+
+GR_KEYS = get_gr_api_keys(PROJ_ROOT)
 
 # BOOK_NUMBERS = pickle.load(open(str(PROJ_ROOT.joinpath("data", "BOOK_NUMBERS")), "rb+"))
 
